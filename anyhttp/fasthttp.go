@@ -10,56 +10,56 @@ import (
 	"github.com/valyala/fasthttp"
 )
 
-type RequestFastHttp struct {
+type RequestFastHTTP struct {
 	Raw       *fasthttp.RequestCtx
-	allArgs   *ArgsFastHttpMulti
-	queryArgs *ArgsFastHttp
-	postArgs  *ArgsFastHttp
+	allArgs   *ArgsFastHTTPMulti
+	queryArgs *ArgsFastHTTP
+	postArgs  *ArgsFastHTTP
 }
 
-func NewRequestFastHttp(ctx *fasthttp.RequestCtx) *RequestFastHttp {
-	return &RequestFastHttp{
+func NewRequestFastHTTP(ctx *fasthttp.RequestCtx) *RequestFastHTTP {
+	return &RequestFastHTTP{
 		Raw:       ctx,
-		allArgs:   &ArgsFastHttpMulti{Raw: []*fasthttp.Args{ctx.QueryArgs(), ctx.PostArgs()}},
-		queryArgs: &ArgsFastHttp{Raw: ctx.QueryArgs()},
-		postArgs:  &ArgsFastHttp{Raw: ctx.PostArgs()},
+		allArgs:   &ArgsFastHTTPMulti{Raw: []*fasthttp.Args{ctx.QueryArgs(), ctx.PostArgs()}},
+		queryArgs: &ArgsFastHTTP{Raw: ctx.QueryArgs()},
+		postArgs:  &ArgsFastHTTP{Raw: ctx.PostArgs()},
 	}
 }
 
-func (r RequestFastHttp) Header(s string) []byte                  { return r.Raw.Request.Header.Peek(s) }
-func (r RequestFastHttp) HeaderString(s string) string            { return string(r.Raw.Request.Header.Peek(s)) }
-func (r RequestFastHttp) ParseForm() error                        { return nil }
-func (r RequestFastHttp) AllArgs() Args                           { return r.allArgs }
-func (r RequestFastHttp) QueryArgs() Args                         { return r.queryArgs }
-func (r RequestFastHttp) PostArgs() Args                          { return r.postArgs }
-func (r RequestFastHttp) Method() []byte                          { return r.Raw.Method() }
-func (r RequestFastHttp) MultipartForm() (*multipart.Form, error) { return r.Raw.MultipartForm() }
-func (r RequestFastHttp) RemoteAddr() net.Addr                    { return r.Raw.RemoteAddr() }
-func (r RequestFastHttp) RemoteAddress() string                   { return r.Raw.RemoteAddr().String() }
-func (r RequestFastHttp) RequestURI() []byte                      { return r.Raw.RequestURI() }
-func (r RequestFastHttp) UserAgent() []byte                       { return r.Raw.UserAgent() }
-func (r RequestFastHttp) PostBody() ([]byte, error)               { return r.Raw.PostBody(), nil }
+func (r RequestFastHTTP) Header(s string) []byte                  { return r.Raw.Request.Header.Peek(s) }
+func (r RequestFastHTTP) HeaderString(s string) string            { return string(r.Raw.Request.Header.Peek(s)) }
+func (r RequestFastHTTP) ParseForm() error                        { return nil }
+func (r RequestFastHTTP) AllArgs() Args                           { return r.allArgs }
+func (r RequestFastHTTP) QueryArgs() Args                         { return r.queryArgs }
+func (r RequestFastHTTP) PostArgs() Args                          { return r.postArgs }
+func (r RequestFastHTTP) Method() []byte                          { return r.Raw.Method() }
+func (r RequestFastHTTP) MultipartForm() (*multipart.Form, error) { return r.Raw.MultipartForm() }
+func (r RequestFastHTTP) RemoteAddr() net.Addr                    { return r.Raw.RemoteAddr() }
+func (r RequestFastHTTP) RemoteAddress() string                   { return r.Raw.RemoteAddr().String() }
+func (r RequestFastHTTP) RequestURI() []byte                      { return r.Raw.RequestURI() }
+func (r RequestFastHTTP) UserAgent() []byte                       { return r.Raw.UserAgent() }
+func (r RequestFastHTTP) PostBody() ([]byte, error)               { return r.Raw.PostBody(), nil }
 
-func (r RequestFastHttp) RequestURIVar(s string) string {
+func (r RequestFastHTTP) RequestURIVar(s string) string {
 	if str, ok := r.Raw.UserValue(s).(string); ok {
 		return str
 	}
 	return ""
 }
 
-type ResponseFastHttp struct {
+type ResponseFastHTTP struct {
 	Raw *fasthttp.RequestCtx
 }
 
-func NewResponseFastHttp(ctx *fasthttp.RequestCtx) ResponseFastHttp {
-	return ResponseFastHttp{Raw: ctx}
+func NewResponseFastHTTP(ctx *fasthttp.RequestCtx) ResponseFastHTTP {
+	return ResponseFastHTTP{Raw: ctx}
 }
 
-func (w ResponseFastHttp) GetHeader(k string) []byte { return w.Raw.Response.Header.Peek(k) }
-func (w ResponseFastHttp) SetHeader(k, v string)     { w.Raw.Response.Header.Set(k, v) }
-func (w ResponseFastHttp) SetStatusCode(code int)    { w.Raw.SetStatusCode(code) }
-func (w ResponseFastHttp) SetContentType(ct string)  { w.Raw.SetContentType(ct) }
-func (w ResponseFastHttp) SetBodyBytes(body []byte) (int, error) {
+func (w ResponseFastHTTP) GetHeader(k string) []byte { return w.Raw.Response.Header.Peek(k) }
+func (w ResponseFastHTTP) SetHeader(k, v string)     { w.Raw.Response.Header.Set(k, v) }
+func (w ResponseFastHTTP) SetStatusCode(code int)    { w.Raw.SetStatusCode(code) }
+func (w ResponseFastHTTP) SetContentType(ct string)  { w.Raw.SetContentType(ct) }
+func (w ResponseFastHTTP) SetBodyBytes(body []byte) (int, error) {
 	w.Raw.SetBody(body)
 	return -1, nil
 }
@@ -68,24 +68,24 @@ func (w ResponseFastHttp) SetBodyBytes(body []byte) (int, error) {
 // If bodySize is >= 0, then bodySize bytes must be provided by
 // bodyStream before returning io.EOF. If bodySize < 0, then
 // bodyStream is read until io.EOF.
-func (w ResponseFastHttp) SetBodyStream(bodyStream io.Reader, bodySize int) error {
+func (w ResponseFastHTTP) SetBodyStream(bodyStream io.Reader, bodySize int) error {
 	w.Raw.SetBodyStream(bodyStream, bodySize)
 	return nil
 }
-func (w ResponseFastHttp) SetCookie(cookie *Cookie) {
-	w.Raw.Response.Header.SetCookie(cookie.ToFastHttp())
+func (w ResponseFastHTTP) SetCookie(cookie *Cookie) {
+	w.Raw.Response.Header.SetCookie(cookie.ToFastHTTP())
 }
 
-type ArgsFastHttp struct{ Raw *fasthttp.Args }
+type ArgsFastHTTP struct{ Raw *fasthttp.Args }
 
-func NewArgsFastHttp(args *fasthttp.Args) ArgsFastHttp {
-	return ArgsFastHttp{Raw: args}
+func NewArgsFastHTTP(args *fasthttp.Args) ArgsFastHTTP {
+	return ArgsFastHTTP{Raw: args}
 }
 
-func (a ArgsFastHttp) GetBytes(key string) []byte        { return a.Raw.Peek(key) }
-func (a ArgsFastHttp) GetBytesSlice(key string) [][]byte { return a.Raw.PeekMulti(key) }
-func (a ArgsFastHttp) GetString(key string) string       { return string(a.Raw.Peek(key)) }
-func (a ArgsFastHttp) GetStringSlice(key string) []string {
+func (a ArgsFastHTTP) GetBytes(key string) []byte        { return a.Raw.Peek(key) }
+func (a ArgsFastHTTP) GetBytesSlice(key string) [][]byte { return a.Raw.PeekMulti(key) }
+func (a ArgsFastHTTP) GetString(key string) string       { return string(a.Raw.Peek(key)) }
+func (a ArgsFastHTTP) GetStringSlice(key string) []string {
 	slice := a.Raw.PeekMulti(key)
 	newSlice := []string{}
 	for _, bytes := range slice {
@@ -93,7 +93,7 @@ func (a ArgsFastHttp) GetStringSlice(key string) []string {
 	}
 	return newSlice
 }
-func (a ArgsFastHttp) GetURLValues() url.Values {
+func (a ArgsFastHTTP) GetURLValues() url.Values {
 	vals, err := url.ParseQuery(a.Raw.String())
 	if err != nil {
 		return url.Values{}
@@ -101,15 +101,15 @@ func (a ArgsFastHttp) GetURLValues() url.Values {
 	return vals
 }
 
-type ArgsFastHttpMulti struct {
+type ArgsFastHTTPMulti struct {
 	Raw []*fasthttp.Args
 }
 
-func NewArgsFastHttpMulti(args []*fasthttp.Args) ArgsFastHttpMulti {
-	return ArgsFastHttpMulti{Raw: args}
+func NewArgsFastHTTPMulti(args []*fasthttp.Args) ArgsFastHTTPMulti {
+	return ArgsFastHTTPMulti{Raw: args}
 }
 
-func (args ArgsFastHttpMulti) GetBytes(key string) []byte {
+func (args ArgsFastHTTPMulti) GetBytes(key string) []byte {
 	for _, raw := range args.Raw {
 		try := raw.Peek(key)
 		if len(try) == 0 {
@@ -119,7 +119,7 @@ func (args ArgsFastHttpMulti) GetBytes(key string) []byte {
 	return []byte("")
 }
 
-func (args ArgsFastHttpMulti) GetBytesSlice(key string) [][]byte {
+func (args ArgsFastHTTPMulti) GetBytesSlice(key string) [][]byte {
 	newSlice := [][]byte{}
 	for _, raw := range args.Raw {
 		slice := raw.PeekMulti(key)
@@ -132,7 +132,7 @@ func (args ArgsFastHttpMulti) GetBytesSlice(key string) [][]byte {
 	return newSlice
 }
 
-func (args ArgsFastHttpMulti) GetString(key string) string {
+func (args ArgsFastHTTPMulti) GetString(key string) string {
 	for _, raw := range args.Raw {
 		try := strings.TrimSpace(string(raw.Peek(key)))
 		if len(try) > 0 {
@@ -142,7 +142,7 @@ func (args ArgsFastHttpMulti) GetString(key string) string {
 	return ""
 }
 
-func (args ArgsFastHttpMulti) GetStringSlice(key string) []string {
+func (args ArgsFastHTTPMulti) GetStringSlice(key string) []string {
 	newSlice := []string{}
 	for _, raw := range args.Raw {
 		slice := raw.PeekMulti(key)
@@ -156,7 +156,7 @@ func (args ArgsFastHttpMulti) GetStringSlice(key string) []string {
 	return newSlice
 }
 
-func (args ArgsFastHttpMulti) GetURLValues() url.Values {
+func (args ArgsFastHTTPMulti) GetURLValues() url.Values {
 	allVals := url.Values{}
 	for _, raw := range args.Raw {
 		thisVals, err := url.ParseQuery(raw.String())
@@ -171,6 +171,6 @@ func (args ArgsFastHttpMulti) GetURLValues() url.Values {
 	return allVals
 }
 
-func NewResReqFastHttp(ctx *fasthttp.RequestCtx) (ResponseFastHttp, *RequestFastHttp) {
-	return NewResponseFastHttp(ctx), NewRequestFastHttp(ctx)
+func NewResReqFastHttp(ctx *fasthttp.RequestCtx) (ResponseFastHTTP, *RequestFastHTTP) {
+	return NewResponseFastHTTP(ctx), NewRequestFastHTTP(ctx)
 }

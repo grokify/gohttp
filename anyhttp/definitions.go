@@ -44,7 +44,7 @@ type Response interface {
 	SetBodyStream(bodyStream io.Reader, bodySize int) error
 }
 
-func WriteSimpleJson(w Response, status int, message string) (int, error) {
+func WriteSimpleJSON(w Response, status int, message string) (int, error) {
 	w.SetStatusCode(status)
 	w.SetContentType(gohttp.ContentTypeAppJSONUtf8)
 	resInfo := gohttp.ResponseInfo{
@@ -81,14 +81,14 @@ func (args ArgsMapStringString) GetBytesSlice(key string) [][]byte {
 func (args ArgsMapStringString) GetString(key string) string        { return args.Raw.Get(key) }
 func (args ArgsMapStringString) GetStringSlice(key string) []string { return args.Raw.GetSlice(key) }
 
-type ArgsUrlValues struct{ Raw url.Values }
+type ArgsURLValues struct{ Raw url.Values }
 
-func NewArgsUrlValues(args url.Values) ArgsUrlValues {
-	return ArgsUrlValues{Raw: args}
+func NewArgsURLValues(args url.Values) ArgsURLValues {
+	return ArgsURLValues{Raw: args}
 }
 
-func (args ArgsUrlValues) GetBytes(key string) []byte { return []byte(args.Raw.Get(key)) }
-func (args ArgsUrlValues) GetBytesSlice(key string) [][]byte {
+func (args ArgsURLValues) GetBytes(key string) []byte { return []byte(args.Raw.Get(key)) }
+func (args ArgsURLValues) GetBytesSlice(key string) [][]byte {
 	newSlice := [][]byte{}
 	if slice, ok := args.Raw[key]; ok {
 		for _, item := range slice {
@@ -98,15 +98,15 @@ func (args ArgsUrlValues) GetBytesSlice(key string) [][]byte {
 	return newSlice
 }
 
-func (args ArgsUrlValues) GetString(key string) string { return args.Raw.Get(key) }
-func (args ArgsUrlValues) GetStringSlice(key string) []string {
+func (args ArgsURLValues) GetString(key string) string { return args.Raw.Get(key) }
+func (args ArgsURLValues) GetStringSlice(key string) []string {
 	if slice, ok := args.Raw[key]; ok {
 		return slice
 	}
 	return []string{}
 }
 
-func (args ArgsUrlValues) GetURLValues() url.Values {
+func (args ArgsURLValues) GetURLValues() url.Values {
 	return args.Raw
 }
 

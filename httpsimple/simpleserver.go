@@ -80,8 +80,12 @@ func HandleTestAnyEngine(aRes anyhttp.Response, aReq anyhttp.Request) {
 		RequestURL: string(aReq.RequestURI()),
 		Time:       time.Now().UTC()}
 	bytes, _ := json.Marshal(test)
-	aRes.SetStatusCode(http.StatusOK)
-	aRes.SetBodyBytes(bytes)
+	_, err := aRes.SetBodyBytes(bytes)
+	if err != nil {
+		aRes.SetStatusCode(http.StatusInternalServerError)
+	} else {
+		aRes.SetStatusCode(http.StatusOK)
+	}
 }
 
 type Handler interface {

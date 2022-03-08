@@ -11,12 +11,12 @@ type Cookie struct {
 	Value string
 }
 
-func (c *Cookie) ToNetHttp() *http.Cookie {
+func (c *Cookie) ToNetHTTP() *http.Cookie {
 	cookie := http.Cookie{Name: c.Name, Value: c.Value}
 	return &cookie
 }
 
-func (c *Cookie) ToFastHttp() *fasthttp.Cookie {
+func (c *Cookie) ToFastHTTP() *fasthttp.Cookie {
 	var cookie fasthttp.Cookie
 	cookie.SetKey(c.Name)
 	cookie.SetValue(c.Value)

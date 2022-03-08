@@ -6,15 +6,15 @@ import (
 
 // TestInterface ensures following interface.
 func TestInterface(t *testing.T) {
-	nethttpReq := &RequestNetHttp{}
-	nethttpRes := ResponseNetHttp{}
+	nethttpReq := &RequestNetHTTP{}
+	nethttpRes := ResponseNetHTTP{}
 
 	MockRequest(nethttpReq)
 	MockResponse(nethttpRes)
 	MockHandler(nethttpRes, nethttpReq)
 
-	fasthttpReq := RequestFastHttp{}
-	fasthttpRes := ResponseFastHttp{}
+	fasthttpReq := RequestFastHTTP{}
+	fasthttpRes := ResponseFastHTTP{}
 
 	MockRequest(fasthttpReq)
 	MockResponse(fasthttpRes)
