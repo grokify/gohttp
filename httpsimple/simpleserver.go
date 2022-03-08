@@ -67,11 +67,11 @@ type TestResponse struct {
 }
 
 func HandleTestFastHTTP(ctx *fasthttp.RequestCtx) {
-	HandleTestAnyEngine(anyhttp.NewResReqFastHttp(ctx))
+	HandleTestAnyEngine(anyhttp.NewResReqFastHTTP(ctx))
 }
 
 func HandleTestNetHTTP(res http.ResponseWriter, req *http.Request) {
-	HandleTestAnyEngine(anyhttp.NewResReqNetHttp(res, req))
+	HandleTestAnyEngine(anyhttp.NewResReqNetHTTP(res, req))
 }
 
 func HandleTestAnyEngine(aRes anyhttp.Response, aReq anyhttp.Request) {

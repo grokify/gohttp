@@ -171,6 +171,6 @@ func (args ArgsFastHTTPMulti) GetURLValues() url.Values {
 	return allVals
 }
 
-func NewResReqFastHttp(ctx *fasthttp.RequestCtx) (ResponseFastHTTP, *RequestFastHTTP) {
+func NewResReqFastHTTP(ctx *fasthttp.RequestCtx) (ResponseFastHTTP, *RequestFastHTTP) {
 	return NewResponseFastHTTP(ctx), NewRequestFastHTTP(ctx)
 }

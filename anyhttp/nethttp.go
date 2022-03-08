@@ -109,6 +109,6 @@ func (w ResponseNetHTTP) SetCookie(cookie *Cookie) {
 	http.SetCookie(w.Raw, cookie.ToNetHTTP())
 }
 
-func NewResReqNetHttp(res http.ResponseWriter, req *http.Request) (ResponseNetHTTP, *RequestNetHTTP) {
+func NewResReqNetHTTP(res http.ResponseWriter, req *http.Request) (ResponseNetHTTP, *RequestNetHTTP) {
 	return NewResponseNetHTTP(res), NewRequestNetHTTP(req)
 }
