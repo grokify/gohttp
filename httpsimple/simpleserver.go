@@ -16,9 +16,9 @@ import (
 )
 
 const (
-	EngineAwsLambda = "awslambda"
-	EngineNetHttp   = "nethttp"
-	EngineFastHttp  = "fasthttp"
+	EngineAWSLambda = "awslambda"
+	EngineNetHTTP   = "nethttp"
+	EngineFastHTTP  = "fasthttp"
 )
 
 type SimpleServer interface {
@@ -31,20 +31,20 @@ type SimpleServer interface {
 func Serve(svc SimpleServer) {
 	engine := strings.ToLower(strings.TrimSpace(svc.HttpEngine()))
 	if len(engine) == 0 {
-		engine = EngineNetHttp
+		engine = EngineNetHTTP
 	}
 	switch engine {
-	case EngineNetHttp:
+	case EngineNetHTTP:
 		log.Fatal(
 			http.ListenAndServe(
 				portAddress(svc.PortInt()),
 				svc.Router()))
-	case EngineAwsLambda:
+	case EngineAWSLambda:
 		log.Fatal(
 			gateway.ListenAndServe(
 				portAddress(svc.PortInt()),
 				svc.Router()))
-	case EngineFastHttp:
+	case EngineFastHTTP:
 		router := svc.RouterFast()
 		if router == nil {
 			log.Fatal("E_NO_FASTROUTER_FOR_ENGINE_FASTHTTP")

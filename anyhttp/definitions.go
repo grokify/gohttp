@@ -44,13 +44,13 @@ type Response interface {
 	SetBodyStream(bodyStream io.Reader, bodySize int) error
 }
 
-func WriteSimpleJson(w Response, status int, message string) {
+func WriteSimpleJson(w Response, status int, message string) (int, error) {
 	w.SetStatusCode(status)
-	w.SetContentType(gohttp.ContentTypeAppJsonUtf8)
+	w.SetContentType(gohttp.ContentTypeAppJSONUtf8)
 	resInfo := gohttp.ResponseInfo{
 		StatusCode: status,
 		Body:       message}
-	w.SetBodyBytes(resInfo.ToJSON())
+	return w.SetBodyBytes(resInfo.ToJSON())
 }
 
 type MapStringString map[string]string

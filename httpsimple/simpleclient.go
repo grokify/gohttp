@@ -10,7 +10,7 @@ import (
 	"github.com/grokify/gohttp"
 )
 
-var rxHttpUrl = regexp.MustCompile(`^(?i)https?://`)
+var rxHTTPURL = regexp.MustCompile(`^(?i)https?://`)
 
 type SimpleRequest struct {
 	Method  string
@@ -32,12 +32,12 @@ func (req *SimpleRequest) Inflate() {
 	if req.IsJSON {
 		if vals, ok := req.Headers[gohttp.HeaderContentType]; !ok {
 			req.Headers[gohttp.HeaderContentType] =
-				[]string{gohttp.ContentTypeAppJsonUtf8}
+				[]string{gohttp.ContentTypeAppJSONUtf8}
 		} else {
 			haveCT := false
 			for _, hval := range vals {
 				hval = strings.ToLower(strings.ToLower(hval))
-				if strings.Index(hval, gohttp.ContentTypeAppJson) == 0 {
+				if strings.Index(hval, gohttp.ContentTypeAppJSON) == 0 {
 					haveCT = true
 					break
 				}
@@ -45,7 +45,7 @@ func (req *SimpleRequest) Inflate() {
 			if !haveCT {
 				req.Headers[gohttp.HeaderContentType] = append(
 					req.Headers[gohttp.HeaderContentType],
-					gohttp.ContentTypeAppJson)
+					gohttp.ContentTypeAppJSON)
 			}
 		}
 	}
@@ -87,7 +87,7 @@ func (sc *SimpleClient) Do(req SimpleRequest) (*http.Response, error) {
 	if len(sc.BaseURL) > 0 {
 		if len(reqURL) == 0 {
 			reqURL = sc.BaseURL
-		} else if !rxHttpUrl.MatchString(reqURL) {
+		} else if !rxHTTPURL.MatchString(reqURL) {
 			reqURL = gohttp.JoinAbsolute(sc.BaseURL, reqURL)
 		}
 	}

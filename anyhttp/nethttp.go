@@ -13,10 +13,10 @@ import (
 )
 
 type RequestNetHttp struct {
-	Raw                 *http.Request
-	allArgs             *ArgsUrlValues
-	postArgs            *ArgsUrlValues
-	multipartForm       *multipart.Form
+	Raw      *http.Request
+	allArgs  *ArgsUrlValues
+	postArgs *ArgsUrlValues
+	// multipartForm       *multipart.Form
 	parsedMultipartForm bool
 	parsedFormArgs      bool
 }
