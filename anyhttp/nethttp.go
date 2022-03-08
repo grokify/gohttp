@@ -90,8 +90,7 @@ func (w ResponseNetHTTP) SetContentType(ct string) {
 }
 
 func (w ResponseNetHTTP) SetBodyBytes(body []byte) (int, error) {
-	w.Raw.Write(body)
-	return -1, nil
+	return w.Raw.Write(body)
 }
 
 // SetBodyStream takes an `io.Reader`. `bodySize` is accepted but
@@ -101,8 +100,8 @@ func (w ResponseNetHTTP) SetBodyStream(bodyStream io.Reader, bodySize int) error
 	if err != nil {
 		return err
 	}
-	w.Raw.Write(bytes)
-	return nil
+	_, err = w.Raw.Write(bytes)
+	return err
 }
 
 func (w ResponseNetHTTP) SetCookie(cookie *Cookie) {
