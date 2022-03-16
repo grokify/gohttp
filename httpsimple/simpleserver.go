@@ -23,13 +23,13 @@ const (
 
 type SimpleServer interface {
 	PortInt() int
-	HttpEngine() string
+	HTTPEngine() string
 	Router() http.Handler
 	RouterFast() *fasthttprouter.Router
 }
 
 func Serve(svc SimpleServer) {
-	engine := strings.ToLower(strings.TrimSpace(svc.HttpEngine()))
+	engine := strings.ToLower(strings.TrimSpace(svc.HTTPEngine()))
 	if len(engine) == 0 {
 		engine = EngineNetHTTP
 	}
