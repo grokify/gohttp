@@ -2,7 +2,6 @@ package anyhttp
 
 import (
 	"io"
-	"io/ioutil"
 	"mime/multipart"
 	"net"
 	"net/http"
@@ -55,7 +54,7 @@ func (r RequestNetHTTP) Method() []byte            { return []byte(r.Raw.Method)
 func (r RequestNetHTTP) Headers() http.Header      { return r.Raw.Header }
 func (r RequestNetHTTP) Form() url.Values          { return r.Raw.Form }
 func (r RequestNetHTTP) RequestURI() []byte        { return []byte(r.Raw.RequestURI) }
-func (r RequestNetHTTP) PostBody() ([]byte, error) { return ioutil.ReadAll(r.Raw.Body) }
+func (r RequestNetHTTP) PostBody() ([]byte, error) { return io.ReadAll(r.Raw.Body) }
 
 func (r RequestNetHTTP) RequestURIVar(s string) string {
 	if r.Raw == nil {
@@ -96,7 +95,7 @@ func (w ResponseNetHTTP) SetBodyBytes(body []byte) (int, error) {
 // SetBodyStream takes an `io.Reader`. `bodySize` is accepted but
 // ignored to fulfill the `Response` interface requirement.
 func (w ResponseNetHTTP) SetBodyStream(bodyStream io.Reader, bodySize int) error {
-	bytes, err := ioutil.ReadAll(bodyStream)
+	bytes, err := io.ReadAll(bodyStream)
 	if err != nil {
 		return err
 	}

@@ -2,7 +2,7 @@ package httpsimple
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"regexp"
 	"strings"
@@ -110,7 +110,7 @@ func (sc *SimpleClient) DoJSON(req SimpleRequest, resBody interface{}) ([]byte, 
 	if err != nil {
 		return []byte{}, nil, err
 	}
-	bytes, err := ioutil.ReadAll(resp.Body)
+	bytes, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return bytes, resp, err
 	}

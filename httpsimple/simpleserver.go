@@ -2,7 +2,6 @@ package httpsimple
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 	"strconv"
@@ -54,7 +53,7 @@ func Serve(svc SimpleServer) {
 				portAddress(svc.PortInt()),
 				router.Handler))
 	default:
-		log.Fatal(fmt.Sprintf("E_ENGINE_NOT_FOUND [%s]", engine))
+		log.Fatalf("E_ENGINE_NOT_FOUND [%s]", engine)
 	}
 }
 
