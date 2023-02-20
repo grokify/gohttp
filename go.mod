@@ -10,9 +10,9 @@ require (
 )
 
 require (
-	github.com/andybalholm/brotli v1.0.4 // indirect
-	github.com/aws/aws-lambda-go v1.35.0 // indirect
-	github.com/klauspost/compress v1.15.12 // indirect
+	github.com/andybalholm/brotli v1.0.5 // indirect
+	github.com/aws/aws-lambda-go v1.37.0 // indirect
+	github.com/klauspost/compress v1.15.15 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 )
