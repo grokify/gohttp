@@ -6,13 +6,13 @@ require (
 	github.com/apex/gateway v1.1.2
 	github.com/buaazp/fasthttprouter v0.1.1
 	github.com/gorilla/mux v1.8.0
-	github.com/valyala/fasthttp v1.44.0
+	github.com/valyala/fasthttp v1.45.0
 )
 
 require (
 	github.com/andybalholm/brotli v1.0.5 // indirect
 	github.com/aws/aws-lambda-go v1.37.0 // indirect
-	github.com/klauspost/compress v1.15.15 // indirect
+	github.com/klauspost/compress v1.16.3 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 )
