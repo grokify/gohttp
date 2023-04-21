@@ -6,7 +6,7 @@ require (
 	github.com/apex/gateway v1.1.2
 	github.com/buaazp/fasthttprouter v0.1.1
 	github.com/gorilla/mux v1.8.0
-	github.com/valyala/fasthttp v1.45.0
+	github.com/valyala/fasthttp v1.46.0
 )
 
 require (
